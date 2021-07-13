@@ -1,0 +1,36 @@
+
+# Caesar Cipher
+import pyperclip
+# The string to be encrypted/decrypted:
+message = "guv6Jv6Jz!J6rp5r7Jzr66ntrM"
+
+# The encryption/decryption key:
+key = 13
+
+# Whether the program encrypts or decrypts
+#mode = 'encrypt' # set to encrypt or decrypt
+mode = 'decrypt'
+# Every symbol to be decrypted
+symbols = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 !?.'
+
+# Store the encrypted/decrypted message
+translated = ''
+for i in message:
+    if i in symbols:
+        symbolIndex = symbols.find(i)
+        if mode == 'encrypt':
+            translatedIndex = symbolIndex + key
+        elif mode == 'decrypt':
+            translatedIndex = symbolIndex - key
+        # Handle wraparound, if needed:
+        if translatedIndex >= len(symbols):
+            translatedIndex = translatedIndex - len(symbols)
+        elif translatedIndex < 0:
+            translatedIndex = translatedIndex + len(symbols)
+        translated = translated + symbols[translatedIndex]
+    else:
+        translated = translated + symbols
+
+# Output the translated string:
+print(translated)
+pyperclip.copy(translated)
